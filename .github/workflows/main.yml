@@ -1,3 +1,5 @@
+
+
 name: Python package
 
 on: [push]
@@ -17,5 +19,9 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       # You can test your matrix by printing the current Python version
-      - name: Display Python version
-        run: python -c "import sys; print(sys.version)"
+      - name: Run all files
+        run: |
+          for file in $(find . -name "*.py"); do
+            echo "Running $file"
+            python "$file"
+          done
