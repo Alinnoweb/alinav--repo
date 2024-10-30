@@ -1,8 +1,12 @@
 
 name: Test and Auto-Merge Development to Main
 
+
 on:
-  [push]
+  push:
+    branches-ignore: 
+      - main  # Исключаем main, чтобы не запускать мерж в саму себя
+
 
 
 jobs:
@@ -26,6 +30,7 @@ jobs:
         run: |
           python -m unittest discover
 
+
   merge:
     needs: test
     if: success()
@@ -35,13 +40,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Get branch name
+        id: vars
+        run: echo "BRANCH_NAME=${GITHUB_REF##*/}" >> $GITHUB_ENV
+
       - name: Configure Git
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Merge Development to Main
+      - name: Merge current branch to main
         run: |
           git checkout main
-          git merge development
+          git merge ${{ env.BRANCH_NAME }}
           git push origin main
+
