@@ -67,11 +67,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install sphinx
 
-      - name: Create documentation directory
+      - name: Create documentation structure
         run: |
           if [ ! -d "docs" ]; then
             mkdir docs
             sphinx-quickstart docs -q --sep --makefile --batchfile --project="Your Project Name" --author="Your Name" --language="en"
+          fi
+          if [ ! -f "docs/index.rst" ]; then
+            echo "Welcome to Project's documentation! \n=================================== \n\n.. toctree:: \n   :maxdepth: 2 \n   :caption: Contents:\n\n   modules" > docs/index.rst
           fi
 
       - name: Configure Sphinx conf.py
