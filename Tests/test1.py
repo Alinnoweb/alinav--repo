@@ -71,7 +71,5 @@ class TestFactorial(unittest.TestCase):
         with self.assertRaises(ValueError, msg="Факториал не определен для отрицательных чисел"):
             factorial(-3)
 
-
-
 if __name__ == "__main__":
     unittest.main()
