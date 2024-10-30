@@ -1,27 +1,49 @@
 
+name: Test and Auto-Merge Development to Main
 
-name: Python package
-
-on: [push]
+on:
+  push:
+    branches:
+      - development
 
 jobs:
-  build:
-
+  test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["pypy3.10", "3.9", "3.10", "3.11", "3.12", "3.13"]
 
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
         with:
-          python-version: ${{ matrix.python-version }}
-      # You can test your matrix by printing the current Python version
-      - name: Run all files
+          python-version: '3.8'
+
+      - name: Install dependencies
         run: |
-          for file in $(find . -name "*.py"); do
-            echo "Running $file"
-            python "$file"
-          done
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests
+        run: |
+          python -m unittest discover
+
+  merge:
+    needs: test
+    if: success()
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Merge Development to Main
+        run: |
+          git checkout main
+          git merge development
+          git push origin main
