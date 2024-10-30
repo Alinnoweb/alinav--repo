@@ -79,7 +79,7 @@ jobs:
         run: |
           echo "import os import sys sys.path.insert(0, os.path.abspath('../path_to_your_module')) extensions = ['sphinx.ext.autodoc', 'sphinx.ext.napoleon']" > docs/conf.py
           echo "Welcome to Project's documentation!
-===================================
+
 
 .. toctree::
    :maxdepth: 2
