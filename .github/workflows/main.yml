@@ -68,7 +68,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install sphinx
-          yes "" | sphinx-quickstart docs
+          yes | sphinx-quickstart docs
           
           
 
