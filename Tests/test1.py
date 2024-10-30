@@ -12,6 +12,7 @@ def is_prime(number: int) -> bool:
             return False
     return True
 
+
 def factorial(number: int) -> int:
     """Вычисляет факториал числа."""
     if number < 0:
