@@ -76,7 +76,7 @@ jobs:
           fi
       - name: Generate documentation
         run: |
-          echo "import os import sys sys.path.insert(0, os.path.abspath('../path_to_your_module')) extensions = ['sphinx.ext.autodoc', 'sphinx.ext.napoleon']" > docs/conf.py
+          echo "import os \n import sys \n sys.path.insert(0, os.path.abspath('../Tests')) \n extensions = ['sphinx.ext.autodoc', 'sphinx.ext.napoleon']" > docs/conf.py
           echo "Welcome to Project's documentation! \n=================================== \n\n .. toctree:: \n :maxdepth: 2 \n :caption: \n Contents: modules \n .. automodule:: my_module \n :members: \n :undoc-members: \n :show-inheritance:" > docs/index.rst
           sphinx-apidoc -o docs/source Tests  
           sphinx-build -b html docs docs/_build/html
