@@ -3,6 +3,7 @@ def is_even(number: int) -> bool:
     """Проверяет, является ли число четным."""
     return number % 2 == 0
 
+
 def is_prime(number: int) -> bool:
     """Проверяет, является ли число простым."""
     if number <= 1:
