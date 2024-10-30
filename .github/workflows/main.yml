@@ -68,7 +68,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install sphinx
-          sphinx-quickstart docs
+          sphinx-quickstart docs < y
 
       - name: Create documentation directory
         run: |
