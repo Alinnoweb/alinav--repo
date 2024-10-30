@@ -2,10 +2,8 @@
 name: Test and Auto-Merge Development to Main
 
 on:
-  push:
-    branches:
-      - development
-      - release
+  [push]
+
 
 jobs:
   test:
